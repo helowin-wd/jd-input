@@ -13,7 +13,22 @@ var keySearch = (function () {
     kwOrder = 0,
     t = null
 
-    console.log(recomKw);
+  addEvent(searchKw, 'focus', function () {
+    clearInterval(t)
+    autoKw.style.color = '#ccc'
+  })
+
+  addEvent(searchKw, 'blur', function () {
+    autoKwShow(this.value, true)
+    t = setInterval(autoKwChange, 1000)
+  })
+
+  addEvent(searchKw, 'input', function () {
+    autoKwShow(this.value, false)
+  })
+  addEvent(searchKw, 'propertychange', function () {
+    autoKwShow(this.value, false)
+  })
 
   function setAutoKws() {
     autoKwChange()
@@ -24,6 +39,15 @@ var keySearch = (function () {
     autoKw.innerHTML = recomKw[kwOrder]
 
     kwOrder = kwOrder >= len - 1 ? 0 : kwOrder + 1
+  }
+
+  function autoKwShow(val, isBlur) {
+    if (val.length <= 0) {
+      autoKw.className = 'auto_kw show'
+      autoKw.style.color = isBlur ? '#989898' : '#ccc'
+    } else {
+      autoKw.className = 'auto_kw hide'
+    }
   }
 
   return function () {

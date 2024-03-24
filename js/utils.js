@@ -1,24 +1,53 @@
 /**
  * 事件监听
- * @param {*} el 
- * @param {*} type 
- * @param {*} fn 
+ * @param {*} el
+ * @param {*} type
+ * @param {*} fn
  */
 function addEvent(el, type, fn) {
   if (el.addEventListener) {
     el.addEventListener(type, fn, false)
   } else if (el.attachEvent) {
-    el.attachEvent('on' + type, function() {
+    el.attachEvent('on' + type, function () {
       handle.call(el)
     })
   } else {
     el['on' + type] = fn
   }
 }
+/**
+ * 删除
+ * @param {*} elem
+ * @param {*} type
+ * @param {*} fn
+ */
+function removeEvent(elem, type, fn) {
+  if (elem.addEventListener) {
+    elem.removeEventListener(type, fn, false)
+  } else if (elem.attachEvent) {
+    elem.detachEvent('on' + type, fn)
+  } else {
+    elem['on' + 'type'] = null
+  }
+}
+
+/**
+ * 取消冒泡
+ * @param {*} e 
+ */
+function cancelBubble(e) {
+  var e = e || window.event;
+
+  if(e.stopPropagation) {
+    e.stopPropagation()
+  } else {
+    e.cancelBubble = true
+  }
+}
 
 /**
  * 获取滚动条距离
- * @returns 
+ * @returns
  */
 function getScrollOffset() {
   if (window.pageXOffset) {
@@ -41,18 +70,18 @@ function getScrollOffset() {
 
 /**
  * 获取视口宽高
- * @returns 
+ * @returns
  */
 function getViewportSize() {
   // W3C规范
-  if(window.innerWidth) {
+  if (window.innerWidth) {
     return {
       width: window.innerWidth,
       height: window.innerHeight
     }
   } else {
     // 浏览器-怪异模式
-    if (document.compatMode === "BackCompat") {
+    if (document.compatMode === 'BackCompat') {
       return {
         width: document.body.clientWidth,
         height: document.body.clientHeight
@@ -64,12 +93,12 @@ function getViewportSize() {
         height: document.documentElement.clientHeight
       }
     }
-  } 
+  }
 }
 
 /**
  * 获取文档宽高
- * @returns 
+ * @returns
  */
 function getScrollSize() {
   // W3C规范
@@ -87,20 +116,20 @@ function getScrollSize() {
 }
 /**
  * 找子元素
- * @param {*} node 
- * @returns 
+ * @param {*} node
+ * @returns
  */
 function elemChildren(node) {
-  if(!node) return
+  if (!node) return
   var temp = {
-    "length": 0,
-    "splice": Array.prototype.splice
+    length: 0,
+    splice: Array.prototype.splice
   }
   len = node?.childNodes.length
 
   for (let i = 0; i < len; i++) {
-    const childItem = node.childNodes[i];
-    
+    const childItem = node.childNodes[i]
+
     if (childItem.nodeType === 1) {
       temp[temp.length] = childItem
       temp['length']++
@@ -110,22 +139,22 @@ function elemChildren(node) {
 }
 /**
  * 找父元素
- * @param {*} node 
+ * @param {*} node
  * @param {*} n 第几个父级元素
- * @returns 
+ * @returns
  */
 function elemParent(node, n) {
-  var type = typeof(n)
+  var type = typeof n
 
-  if (type === "undefined") {
+  if (type === 'undefined') {
     return node.parentNode
-  } else if (n <= 0 || type !== "number") {
+  } else if (n <= 0 || type !== 'number') {
     return undefined
   }
 
-  while(n) {
+  while (n) {
     node = node.parentNode
-    n--;
+    n--
   }
-  return node;
+  return node
 }

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>京东搜索框</title>
+  <style>
+    input {
+      outline: none;
+      border: none;
+      box-sizing: border-box;
+    }
+    .input-wrap {
+      position: relative;
+      width: 250px;
+      height: 35px;
+      margin: 50px auto;
+    }
+    .input-wrap .auto_kw {
+      position: absolute;
+      left: 5px;
+      top: 8px;
+      font-size: 14px;
+      color: #989898;
+    }
+    .input-wrap .search-input {
+      width: 100%;
+      height: 100%;
+      background-color: transparent;
+      border: 1px solid #ddd;
+      text-indent: 5px;
+      color: #424242;
+    }
+  </style>
+</head>
+<body>
+  <div class="input-wrap">
+    <!-- 
+      j_  小写j 用于后端会给数据到这个元素
+      J_  大写J javascript 钩子，用于javascript获取DOM对象
+      js_ 用于和插件和模块相关
+     -->
+     <div class="auto_kw" id="J_auto_kw">推荐词</div>
+    <input type="text" id="J_search_kw" class="search-input" />
+  </div>
+  <!-- 保存后端传递到数据 -->
+  <div style="display: none;" id="J_recomKw">
+    ["电脑", "美妆", "男装", "显示器", "笔记本", "手机"]
+  </div>
+  
+  <script type="text/javascript" src="js/utils.js"></script>
+  <script type="text/javascript" src="js/index.js"></script>
+  <script type="text/javascript">
+    
+ 
+  </script>
+</body>
+</html>
